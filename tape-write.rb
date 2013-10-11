@@ -10,7 +10,21 @@ $bitlen = conf['bitlen']
 $device = conf['device']
 $volume = conf['volume']
 
-$sox = IO.popen('sox -q -t .raw -r 44100 -c 1 -b 16 -e signed-integer - '+$device,'w')
+def sox_command
+  <<-SOX.strip.gsub(/\s+/, ' ')
+    sox
+      --no-show-progress
+      --type .raw
+      --rate 44100
+      --channels 1
+      --bits 16
+      --encoding signed-integer
+      -
+      #{$device}
+  SOX
+end
+
+$sox = IO.popen(sox_command,'w')
 
 def putbyte(value)
   putbit 1

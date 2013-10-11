@@ -45,8 +45,7 @@ def bit(value)
   end
 end
 
-
-$sox = IO.popen('sox -q '+$device+' -t .raw -r 44100 -c 1 -b 16 -e signed-integer -','r')
+$sox = IO.popen("sox -q #{$device} -t .raw -r 44100 -c 1 -b 16 -e signed-integer -",'r')
 
 # Calibrate polarity
 # (wait for 50 repetitions of nppp or pnnn)
